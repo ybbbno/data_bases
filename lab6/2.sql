@@ -12,6 +12,9 @@ where e.Code = d.Code and sp.Code = d.Code;
 select e1.[Name], e2.Tab_Number, iif(e1.[Name] = e2.[Name], null, e2.[Name]) as Руководитель from Employee e1
 inner join Employee e2 on e1.Tab_Number = e2.Chief;
 
+select e1.[Name], e2.Tab_Number, e2.[Name] as Руководитель from Employee e1
+left join Employee e2 on e2.Tab_Number = e1.Chief and e1.Tab_Number != e1.Chief;
+
 /*Задание 4*/
 select st.[Name] from Student st
 inner join
@@ -49,8 +52,9 @@ unpivot ([Exp] for Num in ([101], [201], [301], [401], [501], [601])) as unp) ch
 on em.Tab_Number = ch.Num;
 
 /*Задание 9*/
-select em.[Name] from Employee em
-inner join Prof pr on em.Tab_Number = pr.Tab_Number;
+select em.[Name], pr.[Rank] from Employee em
+inner join Prof pr on em.Tab_Number = pr.Tab_Number 
+where pr.[Rank] = 'профессор';
 
 /*Задание 10*/
 declare @start_date date, @end_date date;
